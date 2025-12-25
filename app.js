@@ -34,7 +34,8 @@ app.post(`/register`, async (req, res, next) => {
 
   let { email, password } = req.body;
   let createuser = await userModel.create({
-email,password
+email,
+password
 
   })
 
