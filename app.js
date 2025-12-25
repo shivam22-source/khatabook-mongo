@@ -53,7 +53,7 @@ email
 if(!user){ return res.send("user not found")}
 
 if(user.password==password){
- res.render("login")
+ res.render("login");
 }
 else res.send("Invailed Password")
 
