@@ -23,26 +23,42 @@ app.get("/", (req, res) => {
 
 });
 
-app.get("/new", (req, res) => {
+app.get("/register", (req, res) => {
     res.render("create")
    
 
 });
 
 
+app.post(`/register`, async (req, res, next) => {
 
-app.post(`/`, async (req, res, next) => {
-
-  let { Email, Password } = req.body;
+  let { email, password } = req.body;
   let createuser = await userModel.create({
- Email,Password
+email,password
 
   })
 
 
+res.redirect(`/`)
 
 })
 
+app.post(`/login`, async (req, res, next) => {
+
+  let { email, password } = req.body;
+  let user = await userModel.findOne({
+email
+
+  })
+if(!user){ return res.send("user not found")}
+
+if(user.password==password){
+ res.render("login")
+}
+else res.send("Invailed Password")
+
+
+})
 
 
 

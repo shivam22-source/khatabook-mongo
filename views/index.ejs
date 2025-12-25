@@ -19,18 +19,18 @@
 
             <div class="mr-6 mt-2">
                 <a class="mr-5" href="/">Home</a>
-                <a href="/create">Create New Hisaab</a>
+              
             </div>
 
     </nav>
     
-      <div class="form justify-center flex items-center mt-50 mr-50">
-     <h1 class="text-xl   mb-50 translate-x-50 font-bold">Log In</h1>
-  <form  action="/create" >
-    <input type="text" placeholder="Email"  class="block w-80  rounded-sm outline-none px-5 py-2 text-black bg-[#E6E6E6]" name="id">
-   <input type="text" placeholder="Password"  class="block w-80 mt-2  rounded-sm outline-none px-5 py-2 text-black bg-[#E6E6E6]" name="pass">
+      <div class="form justify-center flex items-center mt-50 mr-10">
+     <h1 class="text-xl   mb-50 translate-x-50 font-medium">Log In</h1>
+  <form  action="/login" method="post">
+    <input type="email" placeholder="Email"  class="block w-80  rounded-sm outline-none px-5 py-2 text-black bg-[#E6E6E6]" name="email">
+   <input type="password" placeholder="Password"  class="block w-80 mt-2  rounded-sm outline-none px-5 py-2 text-black bg-[#E6E6E6]" name="password">
     <input class="bg-blue-600 rounded-md px-5 py-2 text-white mt-2" type="submit" placeholder="Enter">
-      <a class="ml-26 bg-blue-500 p-2 rounded-md text-white " href="/new">Create New Account</a>
+      <a class="ml-26 bg-blue-500 p-2 rounded-md text-white " href="/register">Create New Account</a>
   </form>
 
 </div>

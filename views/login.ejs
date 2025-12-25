@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   
+    <title>Document</title>
+<script src="https://cdn.tailwindcss.com"></script>
+
+
+    <link rel="stylesheet" href="../stylesheets/style.css">
+
+</head>
+
+<body class="bg-white text-black dark:bg-zinc-900 dark:text-white min-h-screen" >
+    <nav class="flex justify-between p-7">
+
+       <div class="fixed right-60 mr-5 translate-y-1 z-50">
+  <button id="themeToggle" class="text-xl">
+    🌙
+  </button>
+</div>
+           <a class="text-3xl font-bold" href="/">Khatabook.</a>
+
+            <div class="mr-6 mt-2">
+                <a class="mr-5" href="/">Home</a>
+                <a href="/create">Create New Hisaab</a>
+            </div>
+
+    </nav>
+    
+   
+
+
+</body>
+<script src="../javascripts/script.js"></script>
+<script>
+      const toggleBtn = document.getElementById("themeToggle");
+  const html = document.documentElement;
+
+  toggleBtn.addEventListener("click", () => {
+    html.classList.toggle("dark");
+
+    toggleBtn.textContent =
+      html.classList.contains("dark") ? "☀️" : "🌙";
+  });
+</script>
+
+
+<script>
+  tailwind.config = {
+    darkMode: 'class'
+  }
+</script>
+
+
+</html>
