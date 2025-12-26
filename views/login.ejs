@@ -21,16 +21,71 @@
     🌙
   </button>
 </div>
-           <a class="text-3xl font-bold" href="/">Khatabook.</a>
+           <a class="text-3xl font-bold" href="/login">Khatabook.</a>
 
             <div class="mr-6 mt-2">
-                <a class="mr-5" href="/">Home</a>
+                <a class="mr-5" href="/login">Home</a>
                 <a href="/create">Create New Hisaab</a>
             </div>
 
     </nav>
-    
+
+<div class="flex flex-wrap">
    
+<% if (createuser.length > 0) { %>
+
+  <% createuser.forEach((val) => { %>
+
+    <div class="p-20 ">
+      <div class="bg-gray-300 w-80 h-28  p-2 rounded-md">
+
+        <div class="flex justify-between items-center">
+
+          <% if (val.encrypted) { %>
+            <h1 class="bg-blue-500 px-2 py-1 rounded-md text-xs text-black">
+              Encrypted
+            </h1>
+          <% } else { %>
+            <h1 class="bg-green-500 px-2 py-1 rounded-md text-sm text-black">
+              Available
+            </h1>
+          <% } %>
+
+          <h1 class="text-sm text-black">
+            Created on <%= val.createdAt.toDateString() %>
+          </h1>
+
+        </div>
+
+        <h1 class="ml-3 mt-4 text-2xl text-black">
+          <%= val.title %>
+        </h1>
+
+        <a class="text-xs ml-3 text-inherit underline"
+           href="/hisaab/<%= val._id %>">
+          View Hisaab
+        </a>
+
+      </div>
+    </div>
+
+  <% }) %>
+
+<% } %>
+<div class="translate-x-[90vw] translate-y-[40vw] fixed">
+    <a class="flex" href="/">
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 9V5.25A2.25 2.25 0 0 1 10.5 3h6a2.25 2.25 0 0 1 2.25 2.25v13.5A2.25 2.25 0 0 1 16.5 21h-6a2.25 2.25 0 0 1-2.25-2.25V15m-3 0-3-3m0 0 3-3m-3 3H15" />
+</svg>
+Log Out
+
+
+  </a>
+</div>
+
+
+
+</div>
 
 
 </body>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <title>Document</title>
+
+
+    <link rel="stylesheet" href="../stylesheets/style.css">
+
+</head>
+
+<body>
+    <nav class="flex justify-between p-7">
+       
+           <a class="text-3xl font-bold" href="/login">Khatabook.</a>
+
+
+    </nav>
+    <div class="p-18">
+<div class="flex gap-8">
+         <% if (result.encrypted) { %>
+            <h1 class="bg-blue-500 w-30 px-3 py-2 rounded-md text-xs text-black">
+              Encrypted
+            </h1>
+          <% } else { %>
+            <h1 class="bg-green-500 w-30 px-2 py-1 rounded-md text-sm text-black">
+              Available
+            </h1>
+          <% } %>
+          
+          <a class="font-semibold" href="">Share as a link</a>
+           <a class="bg-red-500 w-20 px-2 py-1 rounded-md text-xs text-white" href="">
+              Delete
+            </a>
+            <a class="bg-yellow-300 w-20 px-2 py-1 rounded-md text-xs text-black" href="">
+              Edit
+            </a>
+
+    </div>
+    <h1 class="text-sm mt-4">Created on <%= result.createdAt.toDateString()%> </h1>
+
+    <div class="py-5">
+<h1 class="text-4xl">
+    <%=result.title %>
+</h1>
+<h1 class="text-2xl mt-5">
+    <%= result.detail%>
+</h1>
+    </div>
+     
+    </div>
+    
+
+
+</body>
+<script src="../javascripts/script.js"></script>
+
+</html>

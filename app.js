@@ -1,74 +1,81 @@
-const { profile } = require("console");
 const express = require("express");
 const app = express();
-const userModel=require("./models/user") ///modEls make
-const mongooseconnection=require("./config/mongoose") //mongoose connect
 
-app.set("view engine","ejs");
-//view engine(html ejs)
+const userModel = require("./models/user");
+const { taskModel, validateTask } = require("./models/task");
+const mongooseconnection = require("./config/mongoose");
 
+app.set("view engine", "ejs");
 app.use(express.static("public"));
-///other codes (css,js...)
-
-
-
-
 app.use(express.json());
-app.use(express.urlencoded({ extended: true })); 
-///parsers form
+app.use(express.urlencoded({ extended: true }));
+
 
 app.get("/", (req, res) => {
-    res.render("index")
-   
-
+  res.render("index");
 });
 
 app.get("/register", (req, res) => {
-    res.render("create")
-   
+  res.render("register");
+});
 
+app.post("/register", async (req, res) => {
+  const { email, password } = req.body;
+
+  await userModel.create({ email, password });
+  res.redirect("/");
 });
 
 
-app.post(`/register`, async (req, res, next) => {
+app.get("/login", async (req, res) => {
+  const createuser = await taskModel.find();
+  res.render("login", { createuser });
+});
 
-  let { email, password } = req.body;
-  let createuser = await userModel.create({
-email,
-password
+app.post("/login", async (req, res) => {
+  const { email, password } = req.body;
+  const user = await userModel.findOne({ email });
 
-  })
+  if (!user) return res.send("User not found");
 
+  if (user.password === password) {
+    const createuser = await taskModel.find();
+    return res.render("login", { createuser });
+  }
 
-res.redirect(`/`)
-
-})
-
-app.post(`/login`, async (req, res, next) => {
-
-  let { email, password } = req.body;
-  let user = await userModel.findOne({
-email
-
-  })
-if(!user){ return res.send("user not found")}
-
-if(user.password==password){
- res.render("login");
-}
-else res.send("Invailed Password")
+  res.send("Invalid Password");
+});
 
 
-})
+app.get("/create", (req, res) => {
+  res.render("create");
+});
+
+app.post("/create", async (req, res) => {
+  const data = {
+    title: req.body.title,
+    detail: req.body.detail,
+    encrypted: req.body.encrypted === "on",
+    password:req.body.encrypted === "on" ? req.body.password : undefined
+  };
+
+  /*  JOI VALIDATION */
+  const { error } = validateTask(data);
+  if (error) {
+    return res.send(error.details[0].message);
+  }
+
+  await taskModel.create(data);
+  res.redirect("/login");
+});
 
 
+app.get("/hisaab/:id", async (req, res) => {
+  const result = await taskModel.findById(req.params.id);
+res.render("detail",{result:result})
+});
 
 
-
-app.use((err,req,res,next)=>{
-res.send("Internal server issue")
-
-})
 
 
 app.listen(3000, () => {

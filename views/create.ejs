@@ -1,41 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <title>Document</title>
-
-
-    <link rel="stylesheet" href="../stylesheets/style.css">
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <title>Document</title>
+  <link rel="stylesheet" href="../stylesheets/style.css">
 </head>
-
 <body>
-    <nav class="flex justify-between p-7">
-       
+    <nav class="flex justify-between  p-7">
+ 
            <a class="text-3xl font-bold" href="/">Khatabook.</a>
+    <div class="mr-6 mt-2">
+         <a  class="mr-5" href="/login">Home</a>
+ 
+    </div>
+   
+</nav>
 
-            <div class="mr-6 mt-2">
-                <a class="mr-5" href="/">Home</a>
-               
-            </div>
+<div class="form p-10">
+    <h1 class="text-xl mb-3">Create New Hisaab</h1>
 
-    </nav>
+
+
     
-      <div class="form justify-center flex items-center mt-50 mr-50">
-     <h1 class="text-xl   mb-50 translate-x-60 font-medium">Create New Account</h1>
-  <form  action="/register" method="post">
-    <input type="email" placeholder="Email"  class="block w-80  rounded-sm outline-none px-5 py-2 text-black bg-[#E6E6E6]" name="email">
-   <input type="password" placeholder="Password"  class="block w-80 mt-2  rounded-sm outline-none px-5 py-2 text-black bg-[#E6E6E6]" name="password">
-    <input class="bg-blue-600 rounded-md px-5 py-2 text-white mt-2" type="submit" placeholder="Enter">
-  </form>
-</div>
 
+    <form action="/create" method="post">
+        <input type="text" placeholder="Title here"
+            class="block w-80  rounded-sm outline-none px-5 py-2 text-black bg-[#E6E6E6]" name="title">
+        <textarea placeholder="Type text here...."
+            class="block w-200 h-80 rounded-sm outline-none px-5 py-2 resize-none mt-3 text-black bg-[#E6E6E6]"
+            name="detail"></textarea>
+
+        <label class="flex items-center gap-2 text-sm">
+            <input type="checkbox" id="encryptCheck" name="encrypted">
+            Encrypt this file
+        </label>
+
+        <input type="password" id="passwordInput" name="password" placeholder="Password"
+            class="border px-3 py-2 w-64 mt-2 hidden" />
+
+        <input class="bg-blue-600 rounded-md px-5 py-2 text-white mt-10" type="submit" placeholder="Enter">
+
+        
+    </form>
+</div>
 
 
 </body>
 <script src="../javascripts/script.js"></script>
+<script>  const checkbox = document.getElementById("encryptCheck");
+  const password = document.getElementById("passwordInput");
 
+  checkbox.addEventListener("change", () => {
+    password.classList.toggle("hidden", !checkbox.checked);
+  });
+</script>
 </html>
