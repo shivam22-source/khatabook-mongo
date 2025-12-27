@@ -35,7 +35,10 @@ app.use(session({
 }));
 
 app.get("/login", async (req, res) => {
-  const createuser = await taskModel.find();
+  
+  const createuser = await taskModel.find({
+      user:req.session.userId                
+    });
   res.render("login", { createuser });
 });
 
@@ -48,7 +51,7 @@ app.post("/login", async (req, res) => {
 req.session.userId=user._id;
   if (user.password === password) {
     const createuser = await taskModel.find({
-                    
+      user:req.session.userId                
     });
     return res.render("login", { createuser });
   }
@@ -69,24 +72,47 @@ app.post("/create", async (req, res) => {
     password:req.body.encrypted === "on" ? req.body.password : undefined,  //if true then req.body.pass nhi to undefined
     user:req.session.userId   //linked
   };
+  
 
 //JOI
-  const { error } = validateTask(data);
-  if (error) {
-    return res.send(error.details[0].message);
-  }
 
   await taskModel.create(data);
+req.session.save(()=>{
   res.redirect("/login");
+})
+
+
 });
 
 
 app.get("/hisaab/:id", async (req, res) => {
-  const result = await taskModel.findById(req.params.id);
-res.render("detail",{result:result})
+  const task = await taskModel.findById(req.params.id);
+
+  if (!task) return res.send("Hisaab not found");
+
+  if (!task.encrypted) {
+    res.render("detail", { result: task });
+  } else {
+    res.render("enter-pass", { taskId: task._id });
+  }
 });
 
 
+
+app.post("/login/encrypted/:id", async (req, res) => {
+    const result = await taskModel.findById(req.params.id);
+
+if(result.password==req.body.password){
+   res.render("detail",{result:result})
+}else {
+ res.send(`
+   <script>
+        alert("Wrong password");
+        window.location.href = "/login";
+      </script>
+  `)
+}
+});
 
 
 app.listen(3000, () => {

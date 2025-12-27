@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <title>Document</title>
+  <link rel="stylesheet" href="../stylesheets/style.css">
+</head>
+<body>
+    <nav class="flex justify-between  p-7">
+ 
+           <a class="text-3xl font-bold" href="/">Khatabook.</a>
+    <div class="mr-6 mt-2">
+         <a  class="mr-5" href="/login">Home</a>
+ 
+    </div>
+   
+</nav>
+
+<div class="form p-10">
+ 
+
+
+
+    
+
+    <form action="/login/encrypted/<%=taskId%>"  method="post" >
+
+        <input type="password" id="passwordInput" name="password" placeholder="Password"
+            class="border px-3 py-2 w-64 mt-2 " />
+
+        <input class="bg-blue-600 rounded-md px-5 py-2 text-white translate-y-18 mt-10 translate-x-[-13vw] " type="submit" placeholder="Enter">
+
+        
+    </form>
+</div>
+
+
+</body>
+<script src="../javascripts/script.js"></script>
+<script>  const checkbox = document.getElementById("encryptCheck");
+  const password = document.getElementById("passwordInput");
+
+  checkbox.addEventListener("change", () => {
+    password.classList.toggle("hidden", !checkbox.checked);
+  });
+</script>
+</html>

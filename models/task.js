@@ -1,6 +1,14 @@
 const mongoose = require("mongoose");
 const Joi = require("joi");
 
+/* 🔹 Step-1: custom ObjectId validator */
+const objectId = (value, helpers) => {
+  if (!mongoose.Types.ObjectId.isValid(value)) {
+    return helpers.message("Invalid user id");
+  }
+  return value;
+};
+
 const taskSchema = new mongoose.Schema(
   {
     title: {
@@ -38,6 +46,7 @@ const taskSchema = new mongoose.Schema(
 /*
    JOI VALIDATION
 */
+
 function validateTask(data) {
   const schema = Joi.object({
     title: Joi.string().min(3).max(50).required(),
@@ -47,7 +56,8 @@ function validateTask(data) {
       is: true,
       then: Joi.string().min(4).required(),
       otherwise: Joi.optional().allow("")
-    })
+    }),
+     user: Joi.custom(objectId).required()
   });
 
   return schema.validate(data);
