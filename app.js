@@ -48,7 +48,7 @@ app.post("/login", async (req, res) => {
 req.session.userId=user._id;
   if (user.password === password) {
     const createuser = await taskModel.find({
-      user:req.session.userId                 
+                    
     });
     return res.render("login", { createuser });
   }
