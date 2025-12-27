@@ -1,9 +1,11 @@
 const express = require("express");
+const session=require("express-session");
 const app = express();
 
 const userModel = require("./models/user");
 const { taskModel, validateTask } = require("./models/task");
 const mongooseconnection = require("./config/mongoose");
+const user = require("./models/user");
 
 app.set("view engine", "ejs");
 app.use(express.static("public"));
@@ -26,6 +28,11 @@ app.post("/register", async (req, res) => {
   res.redirect("/");
 });
 
+app.use(session({
+  secret: "khatabook-secret",
+  resave: false,
+  saveUninitialized: true
+}));
 
 app.get("/login", async (req, res) => {
   const createuser = await taskModel.find();
@@ -38,8 +45,11 @@ app.post("/login", async (req, res) => {
 
   if (!user) return res.send("User not found");
 
+req.session.userId=user._id;
   if (user.password === password) {
-    const createuser = await taskModel.find();
+    const createuser = await taskModel.find({
+      user:req.session.userId                 
+    });
     return res.render("login", { createuser });
   }
 
@@ -55,11 +65,12 @@ app.post("/create", async (req, res) => {
   const data = {
     title: req.body.title,
     detail: req.body.detail,
-    encrypted: req.body.encrypted === "on",
-    password:req.body.encrypted === "on" ? req.body.password : undefined
+    encrypted: req.body.encrypted === "on", //true if encrypted is "on" unless false
+    password:req.body.encrypted === "on" ? req.body.password : undefined,  //if true then req.body.pass nhi to undefined
+    user:req.session.userId   //linked
   };
 
-  /*  JOI VALIDATION */
+//JOI
   const { error } = validateTask(data);
   if (error) {
     return res.send(error.details[0].message);

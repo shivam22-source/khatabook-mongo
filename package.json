@@ -12,6 +12,7 @@
   "dependencies": {
     "ejs": "^3.1.10",
     "express": "^5.2.1",
+    "express-session": "^1.18.2",
     "joi": "^18.0.2",
     "mongoose": "^9.0.2"
   }

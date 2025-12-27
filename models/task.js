@@ -26,6 +26,10 @@ const taskSchema = new mongoose.Schema(
         return this.encrypted === true;
       },
       minlength: 4
+    },
+    user: {                                          ///referncing(link user with their task)
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "user"
     }
   },
   { timestamps: true }
